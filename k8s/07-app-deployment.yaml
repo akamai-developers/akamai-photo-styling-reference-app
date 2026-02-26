@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  namespace: photo-styling
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: photo-styling-app
+  template:
+    metadata:
+      labels:
+        app: photo-styling-app
+    spec:
+      nodeSelector:
+        node.kubernetes.io/instance-type: g6-standard-2
+      containers:
+        - name: photo-styling-app
+          image: ${DOCKERHUB_USER}/photo-styling-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: VLM_SERVICE_URL
+              value: http://vlm-service
+            - name: IMAGEGEN_SERVICE_URL
+              value: http://imagegen-service

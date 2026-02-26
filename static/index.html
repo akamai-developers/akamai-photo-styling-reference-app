@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Styling App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Form View -->
+        <div id="formView">
+            <h1>Photo Styling App</h1>
+            <p>Transform your selfie into a stylized image</p>
+            
+            <form id="transformForm">
+                <div class="form-group">
+                    <label for="themeSelect">Select Theme</label>
+                    <select id="themeSelect" name="theme" required>
+                        <option value="">Choose a theme...</option>
+                        <option value="superhero">Superhero</option>
+                        <option value="cyberpunk">Cyberpunk</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="professional">Professional</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Capture or Upload Image</label>
+                    <div class="camera-container">
+                        <video id="video" autoplay playsinline style="display: none;"></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                        <div id="previewContainer" class="preview-container">
+                            <img id="previewImage" src="" alt="Preview" style="display: none;">
+                            <div id="noImageMessage" class="no-image-message">
+                                No image selected
+                            </div>
+                        </div>
+                    </div>
+                    <div class="camera-controls">
+                        <button type="button" id="startCameraBtn" class="btn-secondary">Start Camera</button>
+                        <button type="button" id="captureBtn" class="btn-secondary" style="display: none;">Capture Photo</button>
+                        <button type="button" id="stopCameraBtn" class="btn-secondary" style="display: none;">Stop Camera</button>
+                        <label for="fileInput" class="btn-secondary file-input-label">
+                            Upload Image
+                            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                        </label>
+                        <button type="button" id="clearImageBtn" class="btn-secondary" style="display: none;">Clear</button>
+                    </div>
+                </div>
+                
+                <button type="submit" id="submitBtn" class="btn-primary" disabled>Transform Image</button>
+            </form>
+            
+            <div id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Processing your image... This may take up to 60 seconds.</p>
+                <p class="loading-details" id="loadingDetails"></p>
+            </div>
+            
+            <div id="error" style="display: none;">
+                <h2>Error</h2>
+                <p id="errorContent"></p>
+            </div>
+        </div>
+        
+        <!-- Results View -->
+        <div id="resultsView" style="display: none;">
+            <h1>Your Stylized Image</h1>
+            
+            <div class="results-container">
+                <div class="result-section">
+                    <h2>Original</h2>
+                    <div id="originalImageContainer" class="image-container"></div>
+                </div>
+                
+                <div class="result-section">
+                    <h2>Stylized</h2>
+                    <div id="stylizedImageContainer" class="image-container"></div>
+                </div>
+            </div>
+            
+            <div class="result-info">
+                <div class="info-item">
+                    <strong>Theme:</strong> <span id="resultTheme"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Processing Time:</strong> <span id="processingTime"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Features Detected:</strong> <span id="detectedFeatures"></span>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="downloadBtn" class="btn-primary">Download Image</button>
+                <button id="shareBtn" class="btn-secondary">Share Link</button>
+                <button id="startOverBtn" class="btn-secondary">Start Over</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>

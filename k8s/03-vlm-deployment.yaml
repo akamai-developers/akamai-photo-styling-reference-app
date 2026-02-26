@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vlm
+  namespace: photo-styling
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vlm
+  template:
+    metadata:
+      labels:
+        app: vlm
+    spec:
+      nodeSelector:
+        node.kubernetes.io/instance-type: g2-gpu-rtx4000a1-m
+      containers:
+        - name: vlm-predictor
+          image: ${DOCKERHUB_USER}/vlm-predictor:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: VLM_MODEL_NAME
+              value: Qwen/Qwen3-VL-8B-Instruct-FP8
+          resources:
+            requests:
+              memory: "16Gi"
+              nvidia.com/gpu: "1"
+            limits:
+              memory: "24Gi"
+              nvidia.com/gpu: "1"
